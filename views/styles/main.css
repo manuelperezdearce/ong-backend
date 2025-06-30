@@ -1,0 +1,23 @@
+h1 {
+    margin: auto;
+    font-weight: bold;
+}
+
+.listItem {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 1rem 0;
+    border-radius: 1rem;
+    border: 1px solid slategrey;
+    padding: 1rem;
+
+    h2 {
+        font-weight: bold;
+    }
+
+    &:hover {
+        box-shadow: 0.2rem 0.2rem 4px 1px rgb(99, 98, 97);
+    }
+}

@@ -1,0 +1,34 @@
+[
+    {
+        "id": "2",
+        "title": "Conecta Mayor",
+        "description": "Brindamos dispositivos m\u00f3viles y capacitaci\u00f3n digital a personas mayores para reducir la brecha digital y el aislamiento social.",
+        "image": "https:\/\/cuidadores.unir.net\/images\/post\/tenologiaydependientes.png",
+        "details": "Durante este programa se entregaron tablets y smartphones a m\u00e1s de 1.500 personas mayores, junto con sesiones de alfabetizaci\u00f3n digital. El impacto incluy\u00f3 una mejora significativa en la comunicaci\u00f3n con sus familias y el acceso a servicios de salud y recreaci\u00f3n en l\u00ednea.",
+        "status": "Finalizado"
+    },
+    {
+        "id": "45",
+        "title": "Este es un proyecto",
+        "description": "Proycto muy pro",
+        "image": "asdasda",
+        "details": "asdasd",
+        "status": "Pendinte"
+    },
+    {
+        "id": "45",
+        "title": "weqwe",
+        "description": "qeqwe",
+        "image": "qeqe",
+        "details": "qeqe",
+        "status": "qeqeqe"
+    },
+    {
+        "id": "45",
+        "title": "weqweq",
+        "description": "qeqeqe",
+        "image": "qeqe",
+        "details": "qeqeqeqeqe",
+        "status": "qeqeqeqeq"
+    }
+]
