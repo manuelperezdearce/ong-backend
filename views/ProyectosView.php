@@ -5,7 +5,7 @@ class ProyectosView
     public function renderLista($proyectos)
     {
 ?>
-        <h1>Lista de Proyectos</h1>
+        <h1 class="text-2xl my-4 text-center font-bold">Lista de Proyectos</h1>
 
         <?php include_once __DIR__ . "/components/crearButton.php"; ?>
 
@@ -15,6 +15,7 @@ class ProyectosView
             <section class="container">
                 <?php foreach ($proyectos as $proyecto): ?>
                     <div class="listItem">
+                        <p><strong>ID <?= $proyecto["id"] ?></strong></p>
                         <h2><?= htmlspecialchars($proyecto["title"]) ?></h2>
                         <p><?= htmlspecialchars($proyecto["description"]) ?></p>
                         <p><strong>Estado:</strong> <?= htmlspecialchars($proyecto["status"]) ?></p>
@@ -22,9 +23,6 @@ class ProyectosView
                             <a href="index.php?controller=proyectos&action=watch&id=<?= urlencode($proyecto["id"]) ?>">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
-
-
-
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -37,11 +35,11 @@ class ProyectosView
     public function renderOne($proyecto)
     {
     ?>
-        <h1 class="text-2xl font-bold mb-4">Detalle del Proyecto</h1>
+        <h1 class="text-2xl my-4 text-center font-bold">Detalle del Proyecto</h1>
         <?php if (empty($proyecto)): ?>
             <p>Proyecto no encontrado.</p>
         <?php else: ?>
-            <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+            <div class="max-w-xl mx-auto listItem">
                 <dl>
                     <?php foreach ($proyecto as $campo => $valor): ?>
                         <div class="mb-3">
@@ -66,8 +64,8 @@ class ProyectosView
     public function renderEdit($proyecto, $campos)
     {
     ?>
-        <h1 class="text-2xl font-bold mb-4">Editar Proyecto</h1>
-        <form action="index.php?controller=proyectos&action=edit&id=<?= urlencode($proyecto['id']) ?>" method="POST" class="max-w-md mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl my-4 text-center font-bold">Editar Proyecto</h1>
+        <form action="index.php?controller=proyectos&action=edit&id=<?= urlencode($proyecto['id']) ?>" method="POST" class="max-w-md mx-auto listItem">
             <?php foreach ($campos as $campo): ?>
                 <div class="mb-4">
                     <label for="<?= $campo['name'] ?>" class="block font-semibold mb-1"><?= $campo['label'] ?></label>

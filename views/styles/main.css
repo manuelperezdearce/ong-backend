@@ -1,4 +1,20 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 h1 {
+    text-align: center;
     margin: auto;
     font-weight: bold;
 }
@@ -8,10 +24,11 @@ h1 {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    margin: 1rem 0;
+    /* margin: 1rem 1rem; */
     border-radius: 1rem;
     border: 1px solid slategrey;
     padding: 1rem;
+    width: 100%;
 
     h2 {
         font-weight: bold;
@@ -20,4 +37,24 @@ h1 {
     &:hover {
         box-shadow: 0.2rem 0.2rem 4px 1px rgb(99, 98, 97);
     }
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin: auto;
+    justify-items: center;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.active {
+    color: #2563eb;
+    font-weight: bold;
+    border-bottom: 2px solid #2563eb;
 }

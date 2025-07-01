@@ -1,34 +1,82 @@
 [
     {
+        "id": "1",
+        "title": "Huerto Urbano Escolar",
+        "description": "Implementación de huertos en escuelas para fomentar la educación ambiental.",
+        "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b",
+        "details": "Participan 5 escuelas de la comuna. Incluye talleres y materiales.",
+        "status": "En progreso"
+    },
+    {
         "id": "2",
-        "title": "Conecta Mayor",
-        "description": "Brindamos dispositivos m\u00f3viles y capacitaci\u00f3n digital a personas mayores para reducir la brecha digital y el aislamiento social.",
-        "image": "https:\/\/cuidadores.unir.net\/images\/post\/tenologiaydependientes.png",
-        "details": "Durante este programa se entregaron tablets y smartphones a m\u00e1s de 1.500 personas mayores, junto con sesiones de alfabetizaci\u00f3n digital. El impacto incluy\u00f3 una mejora significativa en la comunicaci\u00f3n con sus familias y el acceso a servicios de salud y recreaci\u00f3n en l\u00ednea.",
+        "title": "Reciclaje Comunitario",
+        "description": "Campaña de reciclaje de plásticos y electrónicos en barrios vulnerables.",
+        "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        "details": "Puntos limpios móviles y charlas educativas.",
+        "status": "Activo"
+    },
+    {
+        "id": "3",
+        "title": "Biblioteca Solidaria",
+        "description": "Creación de una biblioteca comunitaria con libros donados.",
+        "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        "details": "Más de 500 libros disponibles para préstamo gratuito.",
         "status": "Finalizado"
     },
     {
-        "id": "45",
-        "title": "Este es un proyecto",
-        "description": "Proycto muy pro",
-        "image": "asdasda",
-        "details": "asdasd",
-        "status": "Pendinte"
+        "id": "4",
+        "title": "Taller de Energía Solar",
+        "description": "Capacitación en instalación de paneles solares para jóvenes.",
+        "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
+        "details": "Incluye kit de panel solar para cada participante.",
+        "status": "En inscripción"
     },
     {
-        "id": "45",
-        "title": "weqwe",
-        "description": "qeqwe",
-        "image": "qeqe",
-        "details": "qeqe",
-        "status": "qeqeqe"
+        "id": "5",
+        "title": "Mural Participativo",
+        "description": "Creación de murales artísticos en espacios públicos.",
+        "image": "https://images.unsplash.com/photo-1503676382389-4809596d5290",
+        "details": "Artistas locales y vecinos colaboran en el diseño.",
+        "status": "Activo"
     },
     {
-        "id": "45",
-        "title": "weqweq",
-        "description": "qeqeqe",
-        "image": "qeqe",
-        "details": "qeqeqeqeqe",
-        "status": "qeqeqeqeq"
+        "id": "6",
+        "title": "Red de Apoyo Escolar",
+        "description": "Tutorías gratuitas para estudiantes en riesgo de repitencia.",
+        "image": "https://images.unsplash.com/photo-1465101178521-c1a9136a3c5a",
+        "details": "Voluntarios universitarios imparten clases de refuerzo.",
+        "status": "En progreso"
+    },
+    {
+        "id": "7",
+        "title": "Comedor Solidario",
+        "description": "Entrega de almuerzos a personas en situación de calle.",
+        "image": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+        "details": "Se reparten 100 raciones diarias en el centro.",
+        "status": "Activo"
+    },
+    {
+        "id": "8",
+        "title": "Reforestación Urbana",
+        "description": "Plantación de árboles nativos en plazas y parques.",
+        "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
+        "details": "Meta: 500 árboles en 2025.",
+        "status": "Planificado"
+    },
+    {
+        "id": "9",
+        "title": "Cine al Aire Libre",
+        "description": "Proyección de películas familiares en plazas.",
+        "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b",
+        "details": "Entrada gratuita, incluye palomitas.",
+        "status": "Finalizado"
+    },
+    {
+        "id": "10",
+        "title": "Taller de Compostaje",
+        "description": "Aprende a transformar residuos orgánicos en abono.",
+        "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        "details": "Incluye kit de compostaje para los asistentes.",
+        "status": "En inscripción"
     }
 ]

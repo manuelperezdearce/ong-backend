@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "title": "Adopta un \u00c1rbol",
         "description": "Cada aporte financia la plantaci\u00f3n y seguimiento de un \u00e1rbol nativo en zonas reforestadas.",
         "goal": "$1.000.000",
@@ -10,6 +11,7 @@
         "link": "\/donar\/adopta-un-arbol"
     },
     {
+        "id": 2,
         "title": "Ropa de Abrigo para el Invierno",
         "description": "Ayuda a personas en situaci\u00f3n de calle con ropa y kits t\u00e9rmicos para este invierno.",
         "goal": "$500.000",
@@ -20,6 +22,7 @@
         "link": "\/donar\/ropa-invierno"
     },
     {
+        "id": 3,
         "title": "Huertas Urbanas Comunitarias",
         "description": "Tu aporte permite instalar m\u00e1s huertas autosustentables en barrios vulnerables.",
         "goal": "$750.000",
@@ -30,16 +33,18 @@
         "link": "\/donar\/huertas-urbanas"
     },
     {
+        "id": 4,
         "title": "Reciclaje Inclusivo",
         "description": "Financia herramientas y capacitaciones para recicladores de base en alianza con municipios.",
         "goal": "$600.000",
-        "collected": "$448.000",
+        "collected": "$453.000",
         "deadline": "10-07-2025",
         "status": "Activa",
         "image": "https:\/\/www.diariosostenible.cl\/files\/63ff8c126c297_890x533.webp",
         "link": "\/donar\/reciclaje-inclusivo"
     },
     {
+        "id": 5,
         "title": "Acceso Digital para Personas Mayores",
         "description": "Dona para entregar smartphones y capacitaciones a adultos mayores en comunas rurales.",
         "goal": "$850.000",
@@ -48,15 +53,5 @@
         "status": "Activa",
         "image": "https:\/\/cuidadores.unir.net\/images\/post\/tenologiaydependientes.png",
         "link": "\/donar\/conecta-mayor"
-    },
-    {
-        "title": "23123",
-        "description": "123123",
-        "goal": "123123",
-        "collected": "123123",
-        "deadline": "123123",
-        "status": "1231231",
-        "image": "123123",
-        "link": "123123"
     }
 ]
