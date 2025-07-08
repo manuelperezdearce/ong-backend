@@ -88,5 +88,15 @@
         "description": "123123",
         "image": "123123",
         "details": "123123"
+    },
+    {
+        "id": "101",
+        "name": "Evento nuevo!",
+        "date": "09\/05\/2026",
+        "hora": "00:00",
+        "location": "Santiago",
+        "description": "Este evento fue creado por un formulario que se genera din\u00e1micamente!",
+        "image": "ac\u00e1 va al URL de una imagen",
+        "details": ":)"
     }
 ]

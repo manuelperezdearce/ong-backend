@@ -144,27 +144,35 @@ class donacionesController
     {
         $donacionesModel = new Donaciones();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $monto = floatval($_POST['monto'] ?? 0);
+        // POST: Procesar donación
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+            $monto = isset($_POST['monto']) ? floatval($_POST['monto']) : 0;
 
-            $donacion = $donacionesModel->getOneByID($id);
+            if ($id > 0 && $monto > 0) {
+                $donacion = $donacionesModel->getOneByID($id);
 
-            if ($donacion && $monto > 0) {
-                // Quitar símbolos y puntos para convertir a número
-                $actual = floatval(str_replace(['$', '.', ','], ['', '', ''], $donacion['collected']));
-                $nuevoTotal = $actual + $monto;
-                $donacion['collected'] = '$' . number_format($nuevoTotal, 0, '', '.');
+                if ($donacion) {
+                    // Limpiar símbolo y convertir a número
+                    $actual = floatval(str_replace(['$', '.', ','], ['', '', ''], $donacion['collected']));
+                    $nuevoTotal = $actual + $monto;
+                    $donacion['collected'] = '$' . number_format($nuevoTotal, 0, '', '.');
 
-                $donacionesModel->edit($id, $donacion);
+                    $donacionesModel->edit($id, $donacion);
 
-                header("Location: index.php?controller=donaciones&action=watch&id=" . urlencode($id));
-                exit;
+                    header("Location: index.php?controller=donaciones&action=watch&id=" . urlencode($id));
+                    exit;
+                } else {
+                    echo "Donación no encontrada.";
+                }
             } else {
-                echo "Donación no encontrada o monto inválido.";
+                echo "ID o monto inválido.";
             }
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-            $id = $_GET['id'];
+        }
+
+        // GET: Mostrar formulario
+        elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+            $id = intval($_GET['id']);
             $donacion = $donacionesModel->getOneByID($id);
 
             if ($donacion) {
@@ -172,11 +180,17 @@ class donacionesController
                 <h1 class="text-2xl my-4 text-center font-bold">Realizar Donación</h1>
                 <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
                     <h2 class="font-semibold mb-2"><?= htmlspecialchars($donacion['title'] ?? 'Donación') ?></h2>
-                    <form action="index.php?controller=donaciones&action=donar&id=<?= urlencode($id) ?>" method="POST">
+                    <form action="index.php?controller=carrito&action=addCart" method="POST">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
+
                         <label for="monto" class="block mb-2">Monto a donar:</label>
-                        <input type="number" min="1" step="any" name="monto" id="monto" class="border px-3 py-2 rounded w-full mb-4" required>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Donar</button>
-                        <a href="index.php?controller=donaciones&action=watch&id=<?= urlencode($id) ?>" class="ml-2 text-blue-600 hover:underline">Cancelar</a>
+                        <input type="number" min="1" step="any" name="monto" id="monto"
+                            class="border px-3 py-2 rounded w-full mb-4" required>
+
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Donar</button>
+                        <a href="index.php?controller=donaciones&action=watch&id=<?= urlencode($id) ?>"
+                            class="ml-2 text-blue-600 hover:underline">Cancelar</a>
                     </form>
                 </div>
 <?php

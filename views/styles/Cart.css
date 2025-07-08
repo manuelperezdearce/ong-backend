@@ -1,0 +1,39 @@
+.ico-cart-counter {
+    position: absolute;
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 100%;
+    color: white;
+    font-weight: bold;
+    /* padding: 4px; */
+    font-size: 0.7rem;
+    aspect-ratio: 1/1;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -50%;
+    right: -20%;
+    scale: 0.7;
+}
+
+.cart-list-item {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 1rem;
+    width: 100%;
+
+    h2 {
+        font-weight: bold;
+    }
+
+    &>* {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
