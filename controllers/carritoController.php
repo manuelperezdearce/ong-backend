@@ -9,60 +9,78 @@ class carritoController
     {
         try {
             if ($this->isLogin()) {
-                $carrito = $_SESSION['cart'];
+                // Asegurar que el carrito esté definido
+                $carrito = $_SESSION['cart'] ?? [];
 
                 $carritoView = new CarritoView();
-                // Llamar al método y Enviar datos a la vista
                 $carritoView->renderLista($carrito);
             } else {
-                echo ("Ingresar para ver carrito");
-                var_dump($_SESSION['username']);
+                echo "Ingresar para ver carrito";
+                var_dump($_SESSION['username'] ?? 'No definido');
             }
         } catch (\Throwable $th) {
-            echo $th;
+            echo "Error en carrito: " . $th->getMessage();
         }
     }
 
     public function addCart()
     {
-        echo ("llegamos al controlador :3 con el id:" . $_GET['id']);
+        session_start();
 
-        if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
-            $id = $_GET["id"];
-            # Buscar id en donaciones
-            $itemToAdd = $this->getByID($id);
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["monto"])) {
+            $id = intval($_POST["id"]);
+            $amount = floatval($_POST["monto"]);
 
-            # Preparar item para agregar a $_SESSION['cart]
-            var_dump($itemToAdd);
+            if ($id > 0 && $amount > 0) {
+                $itemToAdd = $this->getByID($id);
 
-            $item = [
-                "id" => $itemToAdd['id'],
-                "title" => $itemToAdd['title'],
-                "amount" => "50000"
-            ];
-            # Agregar item a la lista de carrito
-            $_SESSION['cart'][] = $item;
-            # Redirigir a la página anterior
-            header("Location: " . $_SERVER['HTTP_REFERER']);
-            exit;
+                if ($itemToAdd) {
+                    $item = [
+                        "id" => $itemToAdd['id'],
+                        "title" => $itemToAdd['title'],
+                        "amount" => $amount
+                    ];
+
+                    if (!isset($_SESSION['cart'])) {
+                        $_SESSION['cart'] = [];
+                    }
+
+                    $_SESSION['cart'][] = $item;
+
+                    header("Location: index.php?controller=donaciones&action=list");
+                    exit;
+                } else {
+                    echo "Donación no encontrada.";
+                }
+            } else {
+                echo "ID o monto inválido.";
+            }
+        } else {
+            echo "Solicitud inválida. Verifica que el ID y el monto estén definidos.";
         }
+    }
+
+    public function procesarPago()
+    {
+
+        // Validar que haya algo que procesar
+        if (!empty($_SESSION['cart'])) {
+            unset($_SESSION['cart']);
+        }
+
+        // Mostrar pantalla de agradecimiento
+        $view = new CarritoView();
+        $view->renderGracias();
     }
 
     private function isLogin()
     {
-        if (!empty($_SESSION['username'])) {
-            return true;
-        } else {
-            return false;
-        }
+        return !empty($_SESSION['username']);
     }
 
     private function getByID($id)
     {
-        if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
-            $id = $_GET["id"];
-            $donacionesModel = new Donaciones();
-            return $donacionesModel->getOneByID($id);
-        }
+        $donacionesModel = new Donaciones();
+        return $donacionesModel->getOneByID($id);
     }
 }

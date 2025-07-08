@@ -1,10 +1,8 @@
 <?php
+// session_start(); // Iniciar sesión al principio del archivo
+
 $active = $_GET['controller'] ?? 'proyectos';
-
-$itemCounter = count($_SESSION['cart']);
-
-
-
+$itemCounter = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
 <header class="border-b border-black rounded-b-2xl shadow-lg h-[100px]">
@@ -32,7 +30,7 @@ $itemCounter = count($_SESSION['cart']);
                     Carrito
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 
-                    <?php if (!empty($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
+                    <?php if ($itemCounter > 0): ?>
                         <span class="ico-cart-counter"><?= $itemCounter ?></span>
                     <?php endif; ?>
 
