@@ -1,16 +1,18 @@
-html,
-body {
-    height: 100%;
-}
+@import "./Cart.css";
 
 body {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-row: auto 1fr auto;
+    gap: 2rem;
+    /* flex-direction: column; */
 }
 
 main {
-    flex: 1 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 h1 {

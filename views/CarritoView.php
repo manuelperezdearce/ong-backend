@@ -1,0 +1,99 @@
+<?php
+
+class CarritoView
+{
+    public function renderLista($carrito)
+    {
+        // Calcular total a pagar
+        $total = 0;
+        foreach ($carrito as $item) {
+            $monto = $item['amount'] ?? 0;
+            $total += floatval($monto);
+        }
+?>
+        <h1 class="text-2xl my-4 text-center font-bold">Carrito de Compras</h1>
+
+        <?php if (empty($carrito)): ?>
+            <p>No hay donaciones en el carrito.</p>
+        <?php else: ?>
+            <section class="container flex gap-4">
+                <!-- Columna izquierda: ítems -->
+                <article class="w-2/3">
+                    <?php foreach ($carrito as $item): ?>
+                        <div class="cart-list-item border p-4 mb-4 shadow rounded flex items-center justify-between gap-4">
+                            <p class="text-sm text-gray-600 mb-1"><strong>ID:</strong> <?= $item["id"] ?></p>
+                            <h2 class="text-lg font-semibold mb-1 text-right">
+                                <?= htmlspecialchars($item["title"] ?? $item["name"] ?? "Sin título") ?>
+                            </h2>
+                            <p class="text-gray-700 mb-2"><?= htmlspecialchars($item["description"] ?? "") ?></p>
+
+                            <div class="flex items-center gap-2">
+                                <label for="amount_<?= $item["id"] ?>" class="text-sm font-medium">Monto Donación:</label>
+                                <div class="relative w-40">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600 font-medium">$</span>
+                                    <input
+                                        type="number"
+                                        name="montos[<?= $item["id"] ?>]"
+                                        id="amount_<?= $item["id"] ?>"
+                                        class="pl-7 pr-3 py-1 w-full border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        value="<?= htmlspecialchars($item["amount"] ?? "0") ?>"
+                                        min="0"
+                                        step="1000"
+                                        disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </article>
+
+                <!-- Columna derecha: resumen -->
+                <article class="w-1/3 p-4 border shadow rounded flex flex-col gap-4 self-start">
+                    <h2 class="text-xl font-bold">Resumen del carrito</h2>
+
+                    <p class="mb-2 text-[1.5rem]"><strong>Total a pagar:</strong> $<?= number_format($total, 0, ',', '.') ?></p>
+
+                    <p class="text-sm text-gray-700">
+                        Al presionar el botón "Realizar pago", usted será redirigido al portal de pago seguro correspondiente a la pasarela seleccionada. El procesamiento de la transacción se realizará bajo los estándares de seguridad establecidos por dicha plataforma.
+                    </p>
+
+                    <form action="index.php?controller=carrito&action=procesarPago" method="post" class="flex flex-col gap-4">
+
+                        <div class="mb-2">
+                            <h3 class="font-bold mb-1">Seleccione su método de pago</h3>
+
+                            <label class="flex items-center gap-2 mb-2 cursor-pointer justify-center">
+                                <input type="radio" name="pasarela" value="mercadopago" required>
+                                <img src="views/public/mercadopago-logo.png" alt="Mercado Pago" class="h-20 w-32 object-contain">
+                            </label>
+
+                            <label class="flex items-center gap-2 cursor-pointer justify-center">
+                                <input type="radio" name="pasarela" value="webpay" required>
+                                <img src="views/public/webpay-logo.png" alt="WebPay" class="h-20 w-32 object-contain">
+                            </label>
+                        </div>
+
+                        <div>
+                            <p class="text-sm text-gray-700 mb-2">
+                                Al continuar, usted acepta los términos y condiciones del servicio, y declara haber leído la política de privacidad asociada a este sitio. Le recomendamos revisar cuidadosamente los montos antes de confirmar su donación.
+                            </p>
+
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" name="acepta_terminos" required>
+                                <span class="text-sm">He leído y acepto los términos y condiciones</span>
+                            </label>
+                        </div>
+
+                        <input type="hidden" name="total" value="<?= htmlspecialchars($total) ?>">
+
+                        <button type="submit"
+                            class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
+                            Realizar Pago
+                        </button>
+                    </form>
+                </article>
+            </section>
+        <?php endif; ?>
+<?php
+    }
+}

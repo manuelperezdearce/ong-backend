@@ -23,7 +23,7 @@ class DonacionesView
                             <a href="index.php?controller=donaciones&action=watch&id=<?= urlencode($donacion["id"] ?? "") ?>">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
-                            <a href="index.php?controller=donaciones&action=donar&id=<?= urlencode($donacion["id"] ?? "") ?>"
+                            <a href="index.php?controller=carrito&action=addCart&id=<?= urlencode($donacion["id"] ?? "") ?>"
                                 class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition">
                                 <i class="fa fa-heart mr-2"></i>Donar
                             </a>
