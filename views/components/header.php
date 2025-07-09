@@ -24,6 +24,13 @@ $itemCounter = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <a href="index.php?controller=donaciones&action=list"
                     class="<?= $active === 'donaciones' ? 'active' : '' ?>">Donaciones</a>
             </li>
+
+        </ul>
+        <ul class="flex flex-wrap justify-end [&>*]:mx-2 h-full [&>*]:w-[90px] [&>*]:[&>*]:mx-auto">
+            <li class="flex items-center">
+                <a href="index.php?controller=usuarios&action=iniciarSesion"
+                    class="<?= $active === 'usuarios' ? 'active' : '' ?>">Ingresar</a>
+            </li>
             <li class="flex items-center">
                 <a href="index.php?controller=carrito&action=list"
                     class="relative <?= $active === 'carrito' ? 'active' : '' ?>">

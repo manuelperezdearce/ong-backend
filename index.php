@@ -1,7 +1,7 @@
 <?php
 ob_start();
 
-include_once "./mock/fakeSession.php";
+// include_once "./mock/fakeSession.php";
 
 // Obtener el controlador en la URL
 $controllerName = isset($_GET['controller']) ? $_GET['controller'] . 'Controller' : 'proyectosController';
