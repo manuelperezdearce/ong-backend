@@ -5,7 +5,7 @@ $active = $_GET['controller'] ?? 'proyectos';
 $itemCounter = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
-<header class="bg-white border-b border-black rounded-b-2xl shadow-lg h-[100px]">
+<header class="bg-white border-b rounded-b-2xl shadow-lg h-[100px]">
     <nav class="max-w-[1200px] m-auto h-full flex justify-between">
         <a class="flex items-center a-logo" href="index.php?controller=proyectos&action=list">
             <img class="logo" src="./views/public/onglogo.png" alt="Logo del Sitio ONG">
@@ -20,11 +20,12 @@ $itemCounter = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <a href="index.php?controller=eventos&action=list"
                     class="<?= $active === 'eventos' ? 'active' : '' ?>">Eventos</a>
             </li>
-            <li class="flex items-center">
-                <a href="index.php?controller=donaciones&action=list"
-                    class="<?= $active === 'donaciones' ? 'active' : '' ?>">Donaciones</a>
-            </li>
-
+            <?php if (!empty($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+                <li class="flex items-center">
+                    <a href="index.php?controller=donaciones&action=list"
+                        class="<?= $active === 'donaciones' ? 'active' : '' ?>">Donaciones</a>
+                </li>
+            <?php endif; ?>
         </ul>
 
 

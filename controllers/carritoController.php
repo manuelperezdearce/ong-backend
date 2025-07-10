@@ -23,48 +23,30 @@ class carritoController
         }
     }
 
-    public function addCart()
-    {
-        session_start();
-
-        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["monto"])) {
-            $id = intval($_POST["id"]);
-            $amount = floatval($_POST["monto"]);
-
-            if ($id > 0 && $amount > 0) {
-                $itemToAdd = $this->getByID($id);
-
-                if ($itemToAdd) {
-                    $item = [
-                        "id" => $itemToAdd['id'],
-                        "title" => $itemToAdd['title'],
-                        "amount" => $amount
-                    ];
-
-                    if (!isset($_SESSION['cart'])) {
-                        $_SESSION['cart'] = [];
-                    }
-
-                    $_SESSION['cart'][] = $item;
-
-                    header("Location: index.php?controller=donaciones&action=list");
-                    exit;
-                } else {
-                    echo "Donación no encontrada.";
-                }
-            } else {
-                echo "ID o monto inválido.";
-            }
-        } else {
-            echo "Solicitud inválida. Verifica que el ID y el monto estén definidos.";
-        }
-    }
-
     public function procesarPago()
     {
-
-        // Validar que haya algo que procesar
         if (!empty($_SESSION['cart'])) {
+            $donacionesModel = new Donaciones();
+
+            foreach ($_SESSION['cart'] as $donacion) {
+                // Asegurarse de que los campos obligatorios están definidos
+                if (isset($donacion['id_proyecto'], $donacion['id_usuario'], $donacion['monto'])) {
+                    $nuevaDonacion = [
+                        'monto' => $donacion['monto'],
+                        // la fecha la pone la base de datos automáticamente
+                        'id_proyecto' => $donacion['id_proyecto'],
+                        'id_usuario' => $donacion['id_usuario']
+                    ];
+
+                    try {
+                        $donacionesModel->create($nuevaDonacion);
+                    } catch (\Throwable $e) {
+                        echo "Error al registrar donación: " . $e->getMessage();
+                    }
+                }
+            }
+
+            // Vaciar el carrito
             unset($_SESSION['cart']);
         }
 
@@ -76,11 +58,5 @@ class carritoController
     private function isLogin()
     {
         return !empty($_SESSION['username']);
-    }
-
-    private function getByID($id)
-    {
-        $donacionesModel = new Donaciones();
-        return $donacionesModel->getOneByID($id);
     }
 }

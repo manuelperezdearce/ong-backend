@@ -22,48 +22,35 @@ class donacionesController
     }
     public function create()
     {
+        $donacionesModel = new Donaciones();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Recoger datos del formulario dinámicamente
-            $donacionesModel = new Donaciones();
-            $estructura = $donacionesModel->getAll();
-            $primeraDonacion = $estructura[0] ?? [];
-            $nuevaDonacion = [];
-            foreach ($primeraDonacion as $campo => $valor) {
-                $nuevaDonacion[$campo] = $_POST[$campo] ?? '';
-            }
+            $nuevaDonacion = [
+                'monto' => $_POST['monto'] ?? '',
+                'fecha' => $_POST['fecha'] ?? '',
+                'id_proyecto' => $_POST['id_proyecto'] ?? '',
+                'id_usuario' => $_POST['id_usuario'] ?? ''
+            ];
 
             try {
                 $donacionesModel->create($nuevaDonacion);
-
-                // Redirigir a la lista de donaciones después de crear
                 header("Location: index.php?controller=donaciones&action=list");
                 exit;
             } catch (\Throwable $th) {
                 echo "Error al crear la donación: " . $th->getMessage();
             }
         } else {
-            // Leer la estructura de la primera donación para generar los campos
-            $donacionesModel = new Donaciones();
-            $estructura = $donacionesModel->getAll();
-            $primeraDonacion = $estructura[0] ?? [];
-
-            // Generar array de campos dinámicamente
-            $campos = [];
-            foreach ($primeraDonacion as $campo => $valor) {
-                $tipo = 'text';
-                if (is_string($valor) && strlen($valor) > 100) {
-                    $tipo = 'textarea';
-                }
-                $campos[] = [
-                    'name' => $campo,
-                    'label' => ucfirst($campo),
-                    'type' => $tipo,
-                    'required' => true
-                ];
-            }
+            // Campos para construir el formulario
+            $campos = [
+                ['name' => 'monto', 'label' => 'Monto', 'type' => 'number', 'required' => true],
+                ['name' => 'fecha', 'label' => 'Fecha', 'type' => 'date', 'required' => true],
+                ['name' => 'id_proyecto', 'label' => 'ID Proyecto', 'type' => 'number', 'required' => true],
+                ['name' => 'id_usuario', 'label' => 'ID Usuario', 'type' => 'number', 'required' => true],
+            ];
 
             $controller = 'donaciones';
             $action = 'create';
+
             include "./views/components/crear.php";
         }
     }
@@ -135,67 +122,6 @@ class donacionesController
                 exit;
             } catch (\Throwable $th) {
                 echo "Error al eliminar la donación: " . $th->getMessage();
-            }
-        } else {
-            echo "ID de donación no especificado.";
-        }
-    }
-    public function donar()
-    {
-        $donacionesModel = new Donaciones();
-
-        // POST: Procesar donación
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-            $monto = isset($_POST['monto']) ? floatval($_POST['monto']) : 0;
-
-            if ($id > 0 && $monto > 0) {
-                $donacion = $donacionesModel->getOneByID($id);
-
-                if ($donacion) {
-                    // Limpiar símbolo y convertir a número
-                    $actual = floatval(str_replace(['$', '.', ','], ['', '', ''], $donacion['collected']));
-                    $nuevoTotal = $actual + $monto;
-                    $donacion['collected'] = '$' . number_format($nuevoTotal, 0, '', '.');
-
-                    $donacionesModel->edit($id, $donacion);
-
-                    header("Location: index.php?controller=donaciones&action=watch&id=" . urlencode($id));
-                    exit;
-                } else {
-                    echo "Donación no encontrada.";
-                }
-            } else {
-                echo "ID o monto inválido.";
-            }
-        }
-
-        // GET: Mostrar formulario
-        elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-            $id = intval($_GET['id']);
-            $donacion = $donacionesModel->getOneByID($id);
-
-            if ($donacion) {
-?>
-                <h1 class="text-2xl my-4 text-center font-bold">Realizar Donación</h1>
-                <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
-                    <h2 class="font-semibold mb-2"><?= htmlspecialchars($donacion['title'] ?? 'Donación') ?></h2>
-                    <form action="index.php?controller=carrito&action=addCart" method="POST">
-                        <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
-
-                        <label for="monto" class="block mb-2">Monto a donar:</label>
-                        <input type="number" min="1" step="any" name="monto" id="monto"
-                            class="border px-3 py-2 rounded w-full mb-4" required>
-
-                        <button type="submit"
-                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Donar</button>
-                        <a href="index.php?controller=donaciones&action=watch&id=<?= urlencode($id) ?>"
-                            class="ml-2 text-blue-600 hover:underline">Cancelar</a>
-                    </form>
-                </div>
-<?php
-            } else {
-                echo "Donación no encontrada.";
             }
         } else {
             echo "ID de donación no especificado.";

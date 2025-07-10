@@ -1,33 +1,47 @@
 <?php
 
+include_once "./models/Db.php";
+
 class Eventos
 {
     private $url = "./mock/eventos.json";
 
     public function getAll()
     {
-        // Leer archivo JSON
-        $json = file_get_contents($this->url);
-        // Convertir en array
-        $data = json_decode($json, true);
-        // Retornar array al controlador
-        return $data;
+
+        $db = new Db();
+        $pdo = $db->connect();
+
+        // Ejecutar consulta para obtener todos los eventos
+        $stmt = $pdo->prepare("SELECT * FROM evento");
+        $stmt->execute();
+
+        // Obtener todos los resultados como un array asociativo
+        $eventos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Verificar si hay datos
+        if ($eventos) {
+            return $eventos;
+        } else {
+            return []; // Retornar un array vacío si no hay resultados
+        }
     }
+
     public function getOneByID($id)
     {
-        // Leer archivo JSON
-        $json = file_get_contents($this->url);
-        // Convertir en array
-        $data = json_decode($json, true);
+        $db = new Db();
+        $pdo = $db->connect();
 
-        // Buscar el evento por ID
-        foreach ($data as $item) {
-            if (isset($item['id']) && $item['id'] == $id) {
-                return $item;
-            }
+        $stmt = $pdo->prepare("SELECT * FROM evento WHERE id_evento=:id");
+        $stmt->execute([':id' => $id]);
+
+        $evento = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($evento) {
+            return $evento;
+        } else {
+            echo "Error en la consulta";
         }
-        // Si no se encuentra, retorna null
-        return null;
     }
 
     public function create($nuevoEvento)

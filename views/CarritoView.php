@@ -10,12 +10,10 @@ class CarritoView
         // Calcular total a pagar
         $total = 0;
         foreach ($carrito as $item) {
-            $monto = $item['amount'] ?? 0;
+            $monto = $item['monto'] ?? 0;
             $total += floatval($monto);
         }
 ?>
-
-
 
 
         <?php if (empty($carrito)): ?>
@@ -27,22 +25,22 @@ class CarritoView
                 <article class="w-auto">
                     <?php foreach ($carrito as $item): ?>
                         <div class="cart-list-item border p-4 mb-4 shadow rounded flex items-center justify-between gap-4">
-                            <p class="text-sm text-gray-600 mb-1"><strong>ID:</strong> <?= $item["id"] ?></p>
+                            <p class="text-sm text-gray-600 mb-1"><strong>ID:</strong> <?= $item["id_proyecto"] ?></p>
                             <h2 class="text-lg font-semibold mb-1 text-right">
-                                <?= htmlspecialchars($item["title"] ?? $item["name"] ?? "Sin título") ?>
+                                <?= htmlspecialchars($item["title"] ?? $item["nombre"] ?? "Sin título") ?>
                             </h2>
-                            <p class="text-gray-700 mb-2"><?= htmlspecialchars($item["description"] ?? "") ?></p>
+                            <!-- <p class="text-gray-700 mb-2"><?= htmlspecialchars($item["description"] ?? "") ?></p> -->
 
                             <div class="flex items-center gap-2">
-                                <label for="amount_<?= $item["id"] ?>" class="text-sm font-medium">Monto Donación:</label>
+                                <label for="amount_<?= $item["id_proyecto"] ?>" class="text-sm font-medium">Monto Donación:</label>
                                 <div class="relative w-40">
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600 font-medium">$</span>
                                     <input
                                         type="number"
-                                        name="montos[<?= $item["id"] ?>]"
-                                        id="amount_<?= $item["id"] ?>"
+                                        name="montos[<?= $item["id_proyecto"] ?>]"
+                                        id="amount_<?= $item["id_proyecto"] ?>"
                                         class="pl-7 pr-3 py-1 w-full border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        value="<?= htmlspecialchars($item["amount"] ?? "0") ?>"
+                                        value="<?= htmlspecialchars($item["monto"] ?? "0") ?>"
                                         min="0"
                                         step="1000"
                                         disabled>

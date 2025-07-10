@@ -27,6 +27,7 @@ h1 {
 
 .listItem {
     margin-bottom: 1.5rem;
+    background-color: white;
     border: 1px solid #e5e7eb;
     /* tailwind border-gray-200 */
     transition: box-shadow 0.2s ease-in-out;
@@ -51,7 +52,20 @@ h1 {
 }
 
 .active {
-    color: #2563eb;
+    /* color: #2563eb; */
     font-weight: bold;
     border-bottom: 2px solid #2563eb;
+}
+
+header.scroll-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }

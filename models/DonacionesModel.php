@@ -1,4 +1,5 @@
 <?php
+include_once "./models/Db.php";
 
 class Donaciones
 {
@@ -6,12 +7,23 @@ class Donaciones
 
     public function getAll()
     {
-        // Leer archivo JSON
-        $json = file_get_contents($this->url);
-        // Convertir en array
-        $data = json_decode($json, true);
-        // Retornar array al controlador
-        return $data;
+
+        $db = new Db();
+        $pdo = $db->connect();
+
+        // Ejecutar consulta para obtener todos los donaciones
+        $stmt = $pdo->prepare("SELECT * FROM donacion");
+        $stmt->execute();
+
+        // Obtener todos los resultados como un array asociativo
+        $donaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Verificar si hay datos
+        if ($donaciones) {
+            return $donaciones;
+        } else {
+            return []; // Retornar un array vacío si no hay resultados
+        }
     }
 
     public function getOneByID($id)
@@ -29,12 +41,24 @@ class Donaciones
 
     public function create($nuevaDonacion)
     {
-        $json = file_get_contents($this->url);
-        $data = json_decode($json, true);
+        // Conectar a la base de datos
+        $db = new Db();
+        $pdo = $db->connect();
 
-        $data[] = $nuevaDonacion;
+        // Preparar y ejecutar el INSERT
+        $stmt = $pdo->prepare("
+        INSERT INTO donacion (monto, id_proyecto, id_usuario)
+        VALUES (:monto, :id_proyecto, :id_usuario)
+    ");
 
-        file_put_contents($this->url, json_encode($data, JSON_PRETTY_PRINT));
+        $stmt->execute([
+            ':monto' => $nuevaDonacion['monto'],
+            ':id_proyecto' => $nuevaDonacion['id_proyecto'],
+            ':id_usuario' => $nuevaDonacion['id_usuario']
+        ]);
+
+        // Retornar el ID insertado u opcionalmente los datos
+        $nuevaDonacion['id_donacion'] = $pdo->lastInsertId();
 
         return $nuevaDonacion;
     }
@@ -67,22 +91,24 @@ class Donaciones
 
         file_put_contents($this->url, json_encode($data, JSON_PRETTY_PRINT));
     }
-    public function donar($id, $monto)
-    {
-        $json = file_get_contents($this->url);
-        $data = json_decode($json, true);
 
-        foreach ($data as $index => $item) {
-            if (isset($item['id']) && $item['id'] == $id) {
-                // Limpiar el valor actual de 'collected'
-                $actual = floatval(str_replace(['$', '.', ','], ['', '', ''], $item['collected']));
-                $nuevoTotal = $actual + $monto;
-                // Guardar el nuevo valor con formato
-                $data[$index]['collected'] = '$' . number_format($nuevoTotal, 0, '', '.');
-                break;
-            }
-        }
 
-        file_put_contents($this->url, json_encode($data, JSON_PRETTY_PRINT));
-    }
+    // public function donar($id, $monto)
+    // {
+    //     $json = file_get_contents($this->url);
+    //     $data = json_decode($json, true);
+
+    //     foreach ($data as $index => $item) {
+    //         if (isset($item['id']) && $item['id'] == $id) {
+    //             // Limpiar el valor actual de 'collected'
+    //             $actual = floatval(str_replace(['$', '.', ','], ['', '', ''], $item['collected']));
+    //             $nuevoTotal = $actual + $monto;
+    //             // Guardar el nuevo valor con formato
+    //             $data[$index]['collected'] = '$' . number_format($nuevoTotal, 0, '', '.');
+    //             break;
+    //         }
+    //     }
+
+    //     file_put_contents($this->url, json_encode($data, JSON_PRETTY_PRINT));
+    // }
 }

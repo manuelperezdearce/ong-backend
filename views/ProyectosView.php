@@ -13,20 +13,48 @@ class ProyectosView
             <p>No hay proyectos disponibles.</p>
         <?php else: ?>
             <section class="container">
+
                 <?php foreach ($proyectos as $proyecto): ?>
-                    <div class="listItem bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row md:items-center">
-                        <div class="md:w-1/3 h-48 md:h-40 overflow-hidden">
+                    <?php
+                    $recaudado = floatval($proyecto["presupuesto"]);
+                    $meta = floatval($proyecto["goal"] ?? 1);
+                    $porcentaje = min(100, intval(($recaudado / $meta) * 100));
+                    ?>
+                    <div class="listItem bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row md:items-stretch hover:shadow-xl transition-shadow duration-300">
+                        <!-- Imagen del proyecto -->
+                        <div class="md:w-1/3 h-60 md:h-auto overflow-hidden">
                             <img src="<?= htmlspecialchars($proyecto['image']) ?>" alt="Imagen del proyecto"
-                                class="w-full h-full object-cover object-center">
+                                class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105">
                         </div>
-                        <div class="p-4 md:w-2/3 flex flex-col gap-2">
-                            <h2 class="text-xl font-bold text-gray-800"><?= htmlspecialchars($proyecto["nombre"]) ?></h2>
-                            <p class="text-gray-600"><?= htmlspecialchars($proyecto["descripcion"]) ?></p>
-                            <p class="text-sm text-gray-500"><strong>Estado:</strong> <?= htmlspecialchars($proyecto["status"]) ?></p>
-                            <div class="mt-2">
+
+                        <!-- Contenido del proyecto -->
+                        <div class="p-6 md:w-2/3 flex flex-col justify-between gap-3">
+                            <div>
+                                <h2 class="text-2xl font-semibold text-gray-800 mb-1"><?= htmlspecialchars($proyecto["nombre"]) ?></h2>
+                                <p class="text-gray-600 mb-2"><?= htmlspecialchars($proyecto["descripcion"]) ?></p>
+                                <p class="text-sm text-gray-500"><strong>Estado:</strong> <?= htmlspecialchars($proyecto["status"]) ?></p>
+                                <p class="text-sm text-gray-700">
+                                    <strong>Recaudado:</strong> $<?= number_format($recaudado, 0, '', '.') ?>
+                                    <span class="text-gray-500">de $<?= number_format($meta, 0, '', '.') ?></span>
+                                </p>
+
+                                <!-- Barra de progreso -->
+                                <div class="mt-2 w-full bg-gray-300 rounded-full h-4 overflow-hidden">
+                                    <div class="bg-green-500 h-4 rounded-full transition-all duration-500 ease-out" style="width: <?= $porcentaje ?>%;"></div>
+                                </div>
+                                <span class="text-sm text-gray-600"><?= $porcentaje ?>% de la meta alcanzado</span>
+                            </div>
+
+                            <!-- Acciones -->
+                            <div class="mt-4 flex flex-wrap gap-3">
                                 <a href="index.php?controller=proyectos&action=watch&id=<?= urlencode($proyecto["id_proyecto"]) ?>"
-                                    class="inline-block text-blue-600 hover:text-blue-800 font-medium transition">
-                                    <i class="fa fa-eye mr-1"></i> Ver detalle
+                                    class="flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium transition">
+                                    <i class="fa fa-eye"></i> Ver detalle
+                                </a>
+
+                                <a href="index.php?controller=proyectos&action=donar&id=<?= urlencode($proyecto["id_proyecto"]) ?>"
+                                    class="flex items-center gap-1 text-green-600 hover:text-green-800 font-medium transition">
+                                    <i class="fa fa-heart"></i> Donar
                                 </a>
                             </div>
                         </div>

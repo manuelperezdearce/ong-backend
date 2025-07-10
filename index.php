@@ -3,6 +3,8 @@
 session_start();
 ob_start();
 
+
+
 // Obtener el controlador en la URL
 $controllerName = isset($_GET['controller']) ? $_GET['controller'] . 'Controller' : 'proyectosController';
 
@@ -12,8 +14,8 @@ $action = isset($_GET["action"]) ? $_GET["action"] : 'list';
 // Ruta para encontrar los controladores en el MVC
 $controllerPath = "./controllers/" . $controllerName . ".php";
 
-// debug controlador
-// var_dump($controllerName, $controllerPath, $action);
+// debug de la sesion
+// var_dump($_SESSION);
 
 ?>
 

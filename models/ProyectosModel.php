@@ -27,6 +27,34 @@ class Proyectos
         }
     }
 
+    public function getAllWithPresupuesto()
+    {
+        $db = new Db();
+        $pdo = $db->connect();
+
+        $stmt = $pdo->prepare("
+        SELECT 
+            p.id_proyecto,
+            p.nombre,
+            p.descripcion,
+            p.fecha_inicio,
+            p.fecha_fin,
+            p.status,
+            p.goal,
+            p.image,
+            IFNULL(SUM(d.monto), 0) AS presupuesto
+        FROM 
+            proyecto p
+        LEFT JOIN 
+            donacion d ON p.id_proyecto = d.id_proyecto
+        GROUP BY 
+            p.id_proyecto, p.nombre, p.descripcion, p.fecha_inicio, p.fecha_fin, p.status, p.image
+    ");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getOneByID($id)
     {
         $db = new Db();

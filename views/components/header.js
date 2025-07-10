@@ -11,3 +11,12 @@ document.addEventListener('click', function (event) {
         menu?.classList.add("hidden");
     }
 });
+
+window.addEventListener('scroll', function () {
+    const header = document.querySelector('header');
+    if (window.scrollY > 20) {
+        header.classList.add('scroll-active');
+    } else {
+        header.classList.remove('scroll-active');
+    }
+});

@@ -48,11 +48,10 @@ class usuariosController
             $usuario = $usuarioModel->ingresar($datosDelFormulario);
 
             $_SESSION['username'] = $usuario['nombre'];
+            $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['rol'] = $usuario['rol'];
             $_SESSION['avatar'] = $usuario['avatar'];
             $_SESSION['cart'] = [];
-
-            var_dump($_SESSION);
 
             header("Location: index.php");
             exit();
