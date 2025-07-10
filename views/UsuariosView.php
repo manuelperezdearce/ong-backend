@@ -7,7 +7,7 @@ class UsuariosView
     public function loginView()
     {
 ?>
-        <section>
+        <section class="flex [&>*]:w-full flex-wrap ">
             <?= $this->ingresarView() ?>
             <?= $this->registrarView() ?>
         </section>
@@ -18,7 +18,7 @@ class UsuariosView
     private function ingresarView()
     {
     ?>
-        <form action="index.php?controller=usuarios&action=addUserControl" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded shadow mt-10 space-y-4">
+        <form action="index.php?controller=usuarios&action=loginUserControl" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded shadow mt-10 space-y-4">
             <h2 class="text-2xl font-bold text-center mb-4">Iniciar Sesión</h2>
 
             <label class="block">

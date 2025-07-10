@@ -33,4 +33,35 @@ class usuariosController
             echo ("Usuario registrado");
         }
     }
+    public function loginUserControl()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $datosDelFormulario = [
+                "email" => $email,
+                "password" => $password,
+            ];
+
+            $usuarioModel = new UsuariosModel();
+            $usuario = $usuarioModel->ingresar($datosDelFormulario);
+
+            $_SESSION['username'] = $usuario['nombre'];
+            $_SESSION['rol'] = $usuario['rol'];
+            $_SESSION['avatar'] = $usuario['avatar'];
+            $_SESSION['cart'] = [];
+
+            var_dump($_SESSION);
+
+            header("Location: index.php");
+            exit();
+        }
+    }
+    public function exitUserControl()
+    {
+        session_destroy();
+        header("Location: index.php");
+        exit();
+    }
 }

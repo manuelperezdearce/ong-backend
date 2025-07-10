@@ -14,14 +14,17 @@ class CarritoView
             $total += floatval($monto);
         }
 ?>
-        <h1 class="text-2xl my-4 text-center font-bold">Carrito de Compras</h1>
+
+
+
 
         <?php if (empty($carrito)): ?>
             <p class="text-center text-gray-600">No hay donaciones en el carrito.</p>
         <?php else: ?>
-            <section class="container flex gap-4">
+            <section class="container flex flex-wrap bg-white rounded p-4 justify-evenly">
+                <h1 class="w-full text-2xl my-4 text-center font-bold">Carrito de Compras</h1>
                 <!-- Columna izquierda: ítems -->
-                <article class="w-2/3">
+                <article class="w-auto">
                     <?php foreach ($carrito as $item): ?>
                         <div class="cart-list-item border p-4 mb-4 shadow rounded flex items-center justify-between gap-4">
                             <p class="text-sm text-gray-600 mb-1"><strong>ID:</strong> <?= $item["id"] ?></p>
@@ -50,7 +53,7 @@ class CarritoView
                 </article>
 
                 <!-- Columna derecha: resumen -->
-                <article class="w-1/3 p-4 border shadow rounded flex flex-col gap-4 self-start">
+                <article class="max-w-[400px] p-4 border shadow rounded flex flex-col gap-4 self-start">
                     <h2 class="text-xl font-bold">Resumen del carrito</h2>
 
                     <p class="mb-2 text-[1.5rem]"><strong>Total a pagar:</strong> $<?= number_format($total, 0, ',', '.') ?></p>
@@ -95,6 +98,8 @@ class CarritoView
                 </article>
             </section>
         <?php endif; ?>
+
+
     <?php
     }
 

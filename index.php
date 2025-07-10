@@ -1,7 +1,7 @@
 <?php
-ob_start();
 
-// include_once "./mock/fakeSession.php";
+session_start();
+ob_start();
 
 // Obtener el controlador en la URL
 $controllerName = isset($_GET['controller']) ? $_GET['controller'] . 'Controller' : 'proyectosController';
@@ -59,6 +59,8 @@ $controllerPath = "./controllers/" . $controllerName . ".php";
         ?>
     </main>
     <?php include_once "./views/components/footer.php" ?>
+
+    <script src="./views//components//header.js"></script>
 </body>
 
 <?php

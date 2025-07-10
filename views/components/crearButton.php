@@ -1,4 +1,4 @@
-<?php if (!empty($_SESSION['username']) && $_SESSION['role'] === 'admin'): ?>
+<?php if (!empty($_SESSION['username']) && $_SESSION['rol'] === 'admin'): ?>
 
     <a href="index.php?controller=<?= $_GET["controller"] ?>&action=create"
         class="inline-block mb-4 ms-auto px-5 py-2 bg-green-600 text-white font-semibold rounded shadow hover:bg-green-700 transition">
