@@ -31,7 +31,8 @@ $controllerPath = "./controllers/" . $controllerName . ".php";
     <link rel="stylesheet" href="views/styles/main.css">
     <!-- CDN FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <title>Admin panel - Friendly ONG</title>
+    <link rel="icon" type="image/png" href="./views/public/onglogo.ico">
+    <title>Friendly ONG</title>
 </head>
 
 <body>

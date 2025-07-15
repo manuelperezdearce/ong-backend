@@ -23,7 +23,6 @@ class proyectosController
     public function listPopular()
     {
         try {
-            // Podrías recibir el mínimo por GET o dejarlo fijo
             $minDonaciones = isset($_POST['filtro-q-donaciones']) ? intval($_POST['filtro-q-donaciones']) : 3;
 
             $proyectosModel = new Proyectos();
@@ -108,9 +107,7 @@ class proyectosController
             foreach ($primerProyecto as $campo => $valor) {
                 $proyectoEditado[$campo] = $_POST[$campo] ?? '';
             }
-            // Asegúrate de mantener el id original
             $id = $_GET['id'] ?? $proyectoEditado['id'] ?? null;
-
             try {
                 $proyectosModel->edit($id, $proyectoEditado);
 
@@ -190,7 +187,6 @@ class proyectosController
                         "nombre" => $proyecto['nombre'],
                         "monto" => $monto,
                         "id_usuario" => $_SESSION['user_id']
-                        // No se incluye "fecha", la base de datos la generará
                     ];
 
                     if (!isset($_SESSION['cart'])) {
