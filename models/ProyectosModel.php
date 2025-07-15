@@ -55,6 +55,40 @@ class Proyectos
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getWithMinDonations($quantity)
+    {
+        $db = new Db();
+        $pdo = $db->connect();
+
+        $stmt = $pdo->prepare("
+        SELECT 
+            p.id_proyecto,
+            p.nombre,
+            p.descripcion,
+            p.fecha_inicio,
+            p.fecha_fin,
+            p.status,
+            p.goal,
+            p.image,
+            IFNULL(SUM(d.monto), 0) AS presupuesto,
+            COUNT(d.id_donacion) AS total_donaciones
+        FROM 
+            proyecto p
+        LEFT JOIN 
+            donacion d ON p.id_proyecto = d.id_proyecto
+        GROUP BY 
+            p.id_proyecto, p.nombre, p.descripcion, p.fecha_inicio, p.fecha_fin, p.status, p.goal, p.image
+        HAVING 
+            total_donaciones > :quantity
+        ORDER BY 
+            total_donaciones DESC
+    ");
+
+        $stmt->execute([':quantity' => $quantity]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getOneByID($id)
     {
         $db = new Db();

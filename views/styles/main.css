@@ -16,6 +16,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-inline: 4px;
     gap: 2rem;
 }
 
@@ -68,4 +69,23 @@ header.scroll-active {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.container-controllers {
+    display: flex;
+    gap: 4px
+}
+
+.filter-group {
+    width: 250px;
+
+    &>* {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    select {
+        padding: 4px;
+        border-radius: 0.5rem;
+    }
 }

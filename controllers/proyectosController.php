@@ -20,6 +20,21 @@ class proyectosController
             echo $th;
         }
     }
+    public function listPopular()
+    {
+        try {
+            // Podrías recibir el mínimo por GET o dejarlo fijo
+            $minDonaciones = isset($_POST['filtro-q-donaciones']) ? intval($_POST['filtro-q-donaciones']) : 3;
+
+            $proyectosModel = new Proyectos();
+            $proyectos = $proyectosModel->getWithMinDonations($minDonaciones);
+
+            $proyectosView = new ProyectosView();
+            $proyectosView->renderLista($proyectos);
+        } catch (\Throwable $th) {
+            echo "Error al cargar proyectos con donaciones: " . $th->getMessage();
+        }
+    }
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

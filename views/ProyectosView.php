@@ -7,7 +7,38 @@ class ProyectosView
 ?>
         <h1 class="text-2xl my-4 text-center font-bold">Lista de Proyectos</h1>
 
-        <?php include_once __DIR__ . "/components/crearButton.php"; ?>
+
+        <section class="container-controllers">
+            <?php include_once __DIR__ . "/components/crearButton.php"; ?>
+            <form id="filtroProyectos" class="flex flex-row flex-wrap gap-2" action="index.php?controller=proyectos&action=listPopular" method="POST">
+                <div class="filter-group">
+                    <label for="filtro-q-donaciones">Por cantidad de donaciones</label>
+                    <select name="filtro-q-donaciones" id="filtro-q-donaciones">
+                        <option value="0">Seleccione una opción</option>
+                        <option value="1">Más de 1</option>
+                        <option value="5">Más de 5</option>
+                        <option value="10">Más de 10</option>
+                    </select>
+                </div>
+            </form>
+            <div class="filter-group">
+                <label for="filtro-ordenar-nombre">Ordenar por nombre</label>
+                <select name="filtro-ordenar-nombre" id="filtro-ordenar-nombre">
+                    <option value="0">Seleccione una opción</option>
+                    <option value="2">A...Z</option>
+                    <option value="10">Z...A</option>
+                </select>
+            </div>
+
+            <script>
+                document.querySelectorAll('#filtroProyectos select').forEach(select => {
+                    select.addEventListener('change', function() {
+                        document.getElementById('filtroProyectos').submit();
+                    });
+                });
+            </script>
+
+        </section>
 
         <?php if (empty($proyectos)): ?>
             <p>No hay proyectos disponibles.</p>
@@ -33,20 +64,19 @@ class ProyectosView
                                 <h2 class="text-2xl font-semibold text-gray-800 mb-1"><?= htmlspecialchars($proyecto["nombre"]) ?></h2>
                                 <p class="text-gray-600 mb-2"><?= htmlspecialchars($proyecto["descripcion"]) ?></p>
                                 <p class="text-sm text-gray-500"><strong>Estado:</strong> <?= htmlspecialchars($proyecto["status"]) ?></p>
+                            </div>
+
+                            <!-- Acciones -->
+                            <div class="mt-4 flex flex-wrap gap-3">
                                 <p class="text-sm text-gray-700">
                                     <strong>Recaudado:</strong> $<?= number_format($recaudado, 0, '', '.') ?>
                                     <span class="text-gray-500">de $<?= number_format($meta, 0, '', '.') ?></span>
                                 </p>
-
                                 <!-- Barra de progreso -->
                                 <div class="mt-2 w-full bg-gray-300 rounded-full h-4 overflow-hidden">
                                     <div class="bg-green-500 h-4 rounded-full transition-all duration-500 ease-out" style="width: <?= $porcentaje ?>%;"></div>
                                 </div>
                                 <span class="text-sm text-gray-600"><?= $porcentaje ?>% de la meta alcanzado</span>
-                            </div>
-
-                            <!-- Acciones -->
-                            <div class="mt-4 flex flex-wrap gap-3">
                                 <a href="index.php?controller=proyectos&action=watch&id=<?= urlencode($proyecto["id_proyecto"]) ?>"
                                     class="flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium transition">
                                     <i class="fa fa-eye"></i> Ver detalle
