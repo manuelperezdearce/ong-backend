@@ -41,10 +41,10 @@ Para más detalles revisa los controladores y vistas en el código fuente.
 ## Capturas
 
 ### Página Principal
-![Página Principal](views/public/image-menuPrincipal.png)
+![Página Principal](./public/image-menuPrincipal.png)
 
 ### Carrito de Compras
-![Carrito de Compras](views/public/image-carrito.png)
+![Carrito de Compras](./public/image-carrito.png)
 
 ### Ingresar
-![Ingresar](views/public/image-ingresar.png)
+![Ingresar](./public/image-ingresar.png)
