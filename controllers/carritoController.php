@@ -33,7 +33,6 @@ class carritoController
                 if (isset($donacion['id_proyecto'], $donacion['id_usuario'], $donacion['monto'])) {
                     $nuevaDonacion = [
                         'monto' => $donacion['monto'],
-                        // la fecha la pone la base de datos automáticamente
                         'id_proyecto' => $donacion['id_proyecto'],
                         'id_usuario' => $donacion['id_usuario']
                     ];
