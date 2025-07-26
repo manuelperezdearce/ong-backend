@@ -10,25 +10,19 @@ class DonacionesView
         <?php if (empty($donaciones)): ?>
             <p>No hay donaciones disponibles.</p>
         <?php else: ?>
-            <section class="container">
+            <section class="bg-gray-100 p-6 rounded-lg shadow-inner">
+                <h2 class="text-xl font-semibold mb-4">Donaciones registradas</h2>
+
                 <?php foreach ($donaciones as $donacion): ?>
-                    <div class="listItem">
-                        <p><strong>ID <?= $donacion["id"] ?></strong></p>
-                        <h2><?= htmlspecialchars($donacion["title"] ?? $donacion["name"] ?? "Sin título") ?></h2>
-                        <p><?= htmlspecialchars($donacion["description"] ?? "") ?></p>
-                        <p><strong>Monto meta:</strong> <?= htmlspecialchars($donacion["goal"] ?? "") ?></p>
-                        <p><strong>Monto recaudado:</strong> <?= htmlspecialchars($donacion["collected"] ?? "") ?></p>
-                        <p><strong>Estado:</strong> <?= htmlspecialchars($donacion["status"] ?? "") ?></p>
-                        <div class="list-item-controllers flex justify-between items-center">
-                            <a href="index.php?controller=donaciones&action=watch&id=<?= urlencode($donacion["id"] ?? "") ?>">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                            <a href="index.php?controller=donaciones&action=donar&id=<?= urlencode($donacion["id"] ?? "") ?>"
-                                class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition">
-                                <i class="fa fa-heart mr-2"></i>Donar
-                            </a>
+                    <?php if (!empty($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+                        <div class="listItem bg-white border rounded-lg shadow p-4 my-3 hover:shadow-md transition">
+                            <p class="text-sm text-gray-500"><strong>ID:</strong> <?= $donacion["id_donacion"] ?></p>
+                            <p><strong>Monto:</strong> $<?= htmlspecialchars($donacion["monto"] ?? "") ?></p>
+                            <p><strong>Usuario ID:</strong> <?= htmlspecialchars($donacion["id_usuario"] ?? "") ?></p>
+                            <p><strong>Proyecto ID:</strong> <?= htmlspecialchars($donacion["id_proyecto"] ?? "") ?></p>
+                            <p><strong>Fecha:</strong> <?= htmlspecialchars($donacion["fecha"] ?? "") ?></p>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </section>
 

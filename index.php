@@ -1,7 +1,9 @@
 <?php
+
+session_start();
 ob_start();
 
-include_once "./mock/fakeSession.php";
+
 
 // Obtener el controlador en la URL
 $controllerName = isset($_GET['controller']) ? $_GET['controller'] . 'Controller' : 'proyectosController';
@@ -12,8 +14,8 @@ $action = isset($_GET["action"]) ? $_GET["action"] : 'list';
 // Ruta para encontrar los controladores en el MVC
 $controllerPath = "./controllers/" . $controllerName . ".php";
 
-// debug controlador
-// var_dump($controllerName, $controllerPath, $action);
+// debug de la sesion
+// var_dump($_SESSION);
 
 ?>
 
@@ -29,7 +31,8 @@ $controllerPath = "./controllers/" . $controllerName . ".php";
     <link rel="stylesheet" href="views/styles/main.css">
     <!-- CDN FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <title>Admin panel - Friendly ONG</title>
+    <link rel="icon" type="image/png" href="./views/public/onglogo.ico">
+    <title>Friendly ONG</title>
 </head>
 
 <body>
@@ -59,6 +62,8 @@ $controllerPath = "./controllers/" . $controllerName . ".php";
         ?>
     </main>
     <?php include_once "./views/components/footer.php" ?>
+
+    <script src="./views//components//header.js"></script>
 </body>
 
 <?php

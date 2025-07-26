@@ -12,17 +12,38 @@ class EventosView
         <?php else: ?>
             <section class="container">
                 <?php foreach ($eventos as $evento): ?>
-                    <div class="listItem">
-                        <p><strong>ID <?= $evento["id"] ?></strong></p>
-                        <h2><?= htmlspecialchars($evento["name"]) ?></h2>
-                        <p><?= htmlspecialchars($evento["description"]) ?></p>
-                        <p><strong>Fecha:</strong> <?= htmlspecialchars($evento["date"]) ?></p>
-                        <div class="list-item-controllers">
-                            <a href="index.php?controller=eventos&action=watch&id=<?= urlencode(strval($evento["id"])) ?>">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
+                    <div class="listItem flex flex-col md:flex-row bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden mb-6 transition-shadow duration-300">
+                        <!-- Imagen -->
+                        <div class="md:w-1/3 h-56 md:h-auto overflow-hidden">
+                            <img src="<?= htmlspecialchars($evento["image"] ?? 'https://via.placeholder.com/300') ?>"
+                                alt="Imagen del evento"
+                                class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300">
+                        </div>
+
+                        <!-- Contenido -->
+                        <div class="p-6 md:w-2/3 flex flex-col justify-between gap-3">
+                            <div>
+                                <h2 class="text-2xl font-semibold text-gray-800 mb-2"><?= htmlspecialchars($evento["nombre"]) ?></h2>
+                                <p class="text-gray-700 mb-2 leading-relaxed"><?= htmlspecialchars($evento["descripcion"]) ?></p>
+
+                                <?php if (!empty($evento["fecha"])): ?>
+                                    <p class="text-sm text-gray-500">
+                                        <i class="fa fa-calendar mr-1"></i>
+                                        <strong>Fecha:</strong> <?= htmlspecialchars($evento["fecha"]) ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Botón -->
+                            <div class="mt-4">
+                                <a href="index.php?controller=eventos&action=watch&id=<?= urlencode($evento["id_evento"]) ?>"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 transition">
+                                    <i class="fa fa-eye"></i> Ver Detalle
+                                </a>
+                            </div>
                         </div>
                     </div>
+
                 <?php endforeach; ?>
             </section>
 
